@@ -13,11 +13,6 @@ import Interfaces.YearNodeInterface;
 
 public class YearNode implements YearNodeInterface {
 	
-	
-	
-	
-	
-	
 	public YearNode(int year){
 		
 	}
