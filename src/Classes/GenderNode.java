@@ -22,13 +22,10 @@ public class GenderNode implements GenderNodeInterface {
 		if (g == 'F') setGender("Female");
 	}
 	
-	@Override
 	public String getGender() {
-		// TODO Auto-generated method stub
-		return null;
+		return gender;
 	}
 
-	@Override
 	public void setGender(String g) {
 		this.gender = g;
 	}
@@ -38,7 +35,7 @@ public class GenderNode implements GenderNodeInterface {
 	}
 	
 	public void setDown(Classes.ConvictNode ptr){
-	// --> sets the downPtr of the specified GenderNode to ptr
+		this.downPtr = ptr;
 	}
 	
 	public Classes.GenderNode getRight(){

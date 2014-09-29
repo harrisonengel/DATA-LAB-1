@@ -13,32 +13,37 @@ import Interfaces.YearNodeInterface;
 
 public class YearNode implements YearNodeInterface {
 	
+	private int year;
+	private String ship;
+	private YearNode down;
+	private GenderNode right;
+	
 	public YearNode(int year){
 		
 	}
 	public String getShipName(){
-	//--> returns the shipName of the “header” node of the linked list
+		return this.ship;
 	}
 		public void setShipName(String sn){
-	//--> sets the shipName of the node being pointed to to sn.
+			this.ship = sn;
 	}
 		public int getYearSailed(){
-	//--> returns the yearSailed field of the YearNode being pointed to
+			return year;
 	}
 		public void setYearSailed(int ng){
-	//--> sets the age field of the ShipNode being pointed to to ng.
+		this.year = ng;
 	}
 		public YearNode getDown(){
-	//--> returns the value of the downPtr for the specified YearNode
+			return down;
 	}
 		public void setDown(YearNode ptr){
-	//--> sets the downPtr of the specified YearNode to ptr
+			this.down = ptr;
 	}
 		public GenderNode getRight(){
-	//--> returns the value of the rightPtr for the specified YearNode
+		return right;
 	}
 		public void setRight(GenderNode ptr){
-	//--> sets the rightPtr of the specified YearNode to ptr
+		this.right = ptr;
 	}
 
 }

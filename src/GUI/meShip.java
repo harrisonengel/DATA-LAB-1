@@ -1,6 +1,5 @@
-package Classes;
+package GUI;
 
-import GUI.ShipGUI;
 import javax.swing.*;
 
 public class meShip extends JFrame {

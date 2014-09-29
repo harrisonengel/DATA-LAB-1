@@ -12,62 +12,72 @@ package Classes;
 import Interfaces.ConvictNodeInterface;
 
 public class ConvictNode implements ConvictNodeInterface {
-
+	
+	private String lastName;
+	private String firstName;
+	private String age;
+	private String convictionLoc;
+	private String jailSentence;
+	private String homeAdd;
+	private String crime;
+	private String profession;
+	private ConvictNode nextPtr;
+	
 	public ConvictNode(String name){
 		
 	}
 	public String getLastName(){
-	// --> returns the lastName field of the specified ConvictNode
+		return this.lastName;
 	}
 	public void setLastName(String s){
-	// --> sets the lastName field of the specified ConvictNode to s
+		this.lastName = s;
 	}
 	public String getFirstName(){
-	// --> returns the firstName field of the specified ConvictNode
+		return this.firstName;
 	}
 	public void setFirstName(String s){
-	// --> sets the firstName field of the specified ConvictNode to s
+		this.firstName = s;
 	}
 	public String getAge(){
-	// --> returns the age field of the specified ConvictNode
+		return this.age;
 	}
 	public void setAge(String r){
-	// --> sets the age field of the specified ConvictNode to r
+		this.age = r;
 	}
 	public String getWhereConvicted(){
-	// --> returns the convictionLoc field of the specified ConvictNode
+		return this.convictionLoc;
 	}
 	public void setWhereConvicted(String r){
-	// --> sets the convictionLoc field of the specified ConvictNode to r
+		this.convictionLoc = r;
 	}
 	public String getJailSentence(){
-	// --> returns the jailSentence field of the specified ConvictNode
+		return this.jailSentence;
 	}
 	public void setJailSentence(String js){
-	// --> sets the jailSentence field of the specified ConvictNode to r
+		this.jailSentence = js;
 	}
 	public String getHomeAdd(){
-	// --> returns the homeAdd field of the specified ConvictNode
+		return this.homeAdd;
 	}
 	public void setHomeAdd(String ha){
-	// --> sets the homeAdd field of the specified ConvictNode to r
+		this.homeAdd = ha;
 	}
 	public String getCrime(){
-	// --> returns the crime field of the specified ConvictNode
+		return this.crime;
 	}
 	public void setCrime(String c){
-	// --> sets the crime field of the specified ConvictNode to r
+		this.crime = c;
 	}
 	public String getProfession(){
-	// --> returns the profession field of the specified ConvictNode
+		return this.profession;
 	}
 	public void setProfession(String p){
-	// --> sets the profession field of the specified ConvictNode to r
+		this.profession = p;
 	}
-	public Classes.ConvictNode getNext(){
-	// --> returns the nextPtr of the specified ConvictNode
+	public ConvictNode getNext(){
+		return this.nextPtr;
 	}
-	public void setNext(Classes.ConvictNode ptr){
-	// --> sets the nextPtr of the specified ConvictNode to ptr
+	public void setNext(ConvictNode ptr){
+		this.nextPtr = ptr;
 	}
 }
