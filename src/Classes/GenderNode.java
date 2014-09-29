@@ -34,7 +34,7 @@ public class GenderNode implements GenderNodeInterface {
 		return downPtr;
 	}
 	
-	public void setDown(Classes.ConvictNode ptr){
+	public void setDown(ConvictNode ptr){
 		this.downPtr = ptr;
 	}
 	

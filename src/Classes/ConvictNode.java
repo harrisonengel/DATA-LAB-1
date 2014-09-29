@@ -23,8 +23,7 @@ public class ConvictNode implements ConvictNodeInterface {
 	private String profession;
 	private ConvictNode nextPtr;
 	
-	public ConvictNode(String name){
-		
+	public ConvictNode(){
 	}
 	public String getLastName(){
 		return this.lastName;
