@@ -1,0 +1,234 @@
+Surrey
+1814
+M/Guaga/Daniel/20/Savoy Court Martial/7/Mayo/Stealing money/Soldier sailor/
+F/Ireland/Jessica/35/Bristol QS England/7/Dublin/Stealing money/Barber/
+M/Kean/James/27/Middlesex Gaol Delivery/England/14/Cork Co/Desertion/Labourer/
+M/Kelly/James/30/Lancaster QS England/7/Armagh/Robbery man/Brickmaker/
+F/Longford/Patricia/33/Middlesex Gaol Delivery England/7/Tipperary/Pledging stolen property/Tallow chandler/
+M/McGeary/William/25/Lisbon Court Martial Portugal/Life/Limerick/Stealing money/Engineer gunner/
+M/McGellick/Michael/22/Sussex Assizes England/Life/Westmeath/Stealing money/Labourer/
+M/McNally/Patrick/26/Chambly/Court Martial Canada/Life/Roscommon/Desertion/Soldier in 100th Regiment/
+M/Montgomery/Joseph/29/Chambly Court Martial Canada/Life/Tyrone/Desertion/Soldier in 100th Regiment/
+M/Moore/Patrick/27/Chambly Court Martial Canada/Life/Meath/Desertion/Soldier in 100th Regiment/
+M/Myers/William/29/Lisbon Court Martial Portugal/Life/Wicklow/Desertion/Soldier in 100th Regiment/
+F/Newcombe/Josie/16/Sussex Assizes England/Life/Wicklow/Stealing money/Shoemaker/
+M/White/John/45/Shrewsbury Assizes England/Life/Antrim/Stealing money/Labourer/
+F/Young/Joan/35/Tipperary Co/7/Tipperary/Stealing jacket/Servant/Y
+*****
+1816							
+M/Allen/John/24/Tipperary Co/7/Tipperary/Stealing money/Labourer/
+M/Bearfoot/Thomas/18/Dublin City/7/Dublin Co/Robbery highway/Labourer/
+M/Bernie/Michael/25/Leitrim Co/Life/Leitrim Co/Robbery highway/Labourer/
+M/Blane/John/33/Dublin City/7/Down Co/Stealing clothes/Butler servant/
+M/Bourke/Edward/28/Tipperary Co/7/Tipperary/Stealing money/Labourer/
+M/Boylan/Anthony/21/Leitrim Co/Life/Leitrim/Stealing seals/Soldier servant/
+M/Brennan/John/27/Dublin City/7/Sligo Co/House breaking/Shopkeeper liqueur manufacturer/
+M/Brien/James/25/Tipperary Co/7/Tipperary/Stealing boots/Labourer/
+M/Brien/Timothy/28/Tipperary Co/7/Tipperary/Stealing jacket/Horseshoer blacksmith/
+M/Byrne/Michael/21/Dublin City/7/Wicklow Co/Stealing boots/Labourer/
+M/Callaghan/James/49/Kilkenny Co/7/Limerick/Stealing money/Dealer labourer/
+F/Callaghan/Mary/44/Cork City/7/Cork City/Robbery highway/Nursery worker gardener/
+F/Callaghan/Patricia/20/Dublin City/7/Dublin Co/Robbery highway/Sewer/
+M/Callaghan/Thomas/27/Dublin City/7/Meath/Stealing clothes/Servant labourer/
+M/Carey/John/21/Tipperary Co/7/Tipperary/Stealing money/Labourer/
+M/Carthy/John/33/Cork Co/7/Cork Co/Stealing seals/Labourer/
+F/Casey/Mary/40/Tipperary Co/7/Tipperary/Stealing money/Woollen weaver/
+M/Clarke/Patrick/38/Westmeath Co/Life/Meath/Robbery highway/Labourer/
+F/Clayton/Sarah/33/Dublin City/7/Dublin City/Robbery highway/Engraver miniature painter/
+M/Collins/John/26/Dublin City/14/Tipperary/Stealing clothes/School master clerk/
+M/Condon/Andrew/21/Dublin City/Life/Kildare/Stealing money/Sawyer servant labourer/
+M/Conlon/John/26/Dublin City/7/Dublin Co/Stealing seals/Porter labourer/
+F/Connell/Sara/47/Cork City/7/Cork Co/House breaking/Tailor/
+F/Connor/Catherine/16/Cork City/7/Cork City/Stealing boots/Gilder/
+M/Connor/William/32/Dublin City/Life/Kildare/Stealing jacket/Labourer/
+M/Corcoran/Roger/24/Tipperary Co/14/Clonoulty Tipperary Co/Stealing boots/Landholder labourer/
+M/Corkeran/Thomas/25/Kilkenny Co/14/Clonmel Tipperary Co/Assault robbery/Labourer/
+M/Cormican/John/35/Galway Co/Life/Galway Co/Stealing poultry/Ploughman/
+M/Corrigan/John/33/Tipperary Co/7/Tipperary/Stealing money/Labourer/
+M/Costello/Darby/35/Kerry Co/Life/Kerry Co/Robbery highway/Horseshoer blacksmith/
+M/Costello/Joseph/27/Tipperary Co/14/Tipperary/Robbery highway/Labourer/
+M/Daly/John/40/Limerick Co/7/Limerick/Stealing clothes/Labourer/
+M/Dawley/Peter/59/Kerry Co/Life/Kerry Co/Stealing money/Groom labourer/
+M/Dogherty/Patrick/20/Longford Co/Life/Longford Co/Robbery highway/Labourer/
+M/Duffy/Bartholomew/30/Louth Co/7/Galway/Desertion/Soldier in 24th Foot/
+F/Dunn/Mary/19/Dublin City/7/Dublin Co/Stealing clothes/Labourer/
+M/Dunn/William/19/Dublin City/7/Dublin City/Stealing money/Painter glazier labourer/
+M/Dwyer/Denis/27/Tipperary Co/14/Tipperary/Stealing seals/Labourer/
+M/Dwyer/John/26/Tipperary Co/14/Tipperary/House breaking/Labourer/
+M/Egan/Boyce/30/Tipperary Co/7/Tipperary/Stealing boots/Labourer/
+M/Egan/James/30/Dublin City/7/Athlone Roscommon Co & Westmeath Co/Stealing jacket/Chandler soap boiler/
+M/English/David/26/Tipperary Co/7/Tipperary/Stealing boots/Labourer/
+M/Ennis/John/19/Dublin City/14/Dublin Co/Assault robbery/Blacksmith drummer/
+M/Farrell/Francis/19/Longford Co/Life/Longford Co/Stealing poultry/Labourer/
+M/Farrell/Michael/19/Dublin City/7/Wexford Co/Stealing money/Ropemaker/
+M/Fennell/Laurence/32/Dublin City/7/Waterford City/Robbery highway/Butler footman/
+M/Finlay/Michael/23/Dublin City/7/Dublin Co/Robbery highway/Porter labourer/
+F/Fitzgerald/Joanna/17/Cork City/7/Cork City/Stealing clothes/Servant/
+M/Fogarty/John/27/Dublin City/7/Dublin City/Stealing money/Attorney/
+M/Fogarty/John/30/Tipperary Co/7/Tipperary/Robbery highway/Labourer/
+F/Ford/Patricia/19/Cork City/7/Cork City/Robbery highway/Boot closer/
+M/Fox/Edmond/26/Tipperary Co/7/Tipperary/Stealing clothes/Labourer/
+M/Garrigan/Patrick/26/Dublin City/7/Dublin City/Stealing money/Attorney clerk/
+M/Goggin/Patrick/25/Cork Co/Life/Cork Co/Stealing seals/Labourer/
+M/Gunning/John/28/Leitrim Co/Life/Leitrim/House breaking/Labourer/
+M/Gunning/Thomas/30/Leitrim Co/Life/Leitrim/Stealing boots/Labourer/
+M/Hackett/James/26/Tipperary Co/7/Tipperary/Stealing jacket/Labourer/
+M/Hackett/Thomas/26/Tipperary Co/14/Tipperary/Stealing boots/Carpenter house/
+F/Hanlan/Mary/15/Dublin City/7/Westmeath/Assault robbery/Servant/
+M/Harrington/Patrick/44/Cork Co/Life/Cork Co/Stealing poultry/Labourer/
+M/Hayes/Connor/31/Tipperary Co/7/Tipperary/Robbery man/Labourer/
+M/Healy/Edward/19/Dublin City/7/Dublin Co/Pledging stolen property/Groom labourer/
+M/Healy/John/35/Cork City/7/Kerry/Picking pockets/Carter labourer/
+M/Heffernan/Patrick/26/Westmeath Co/7/Westmeath/Stealing clothes/Labourer/
+M/Hempenstal/William/25/Dublin City/14/Dublin City/Desertion/Seaman/
+F/Hennessy/Helen/16/Cork City/7/Cork City/Robbery man/Tailor/
+M/Hennessy/John/24/Tipperary Co/7/Tipperary/Pledging stolen property/Labourer/
+M/Hickey/Patrick/24/Tipperary Co/7/Tipperary/Picking pockets/Labourer/
+M/Higgins/Bernard/20/Dublin City/7/Dublin City/Stealing clothes/Labourer/
+M/Higgins/Thomas/25/Limerick Co/7/Limerick/Shoplifting/Labourer/
+M/Higgins/William/20/Dublin City/Life/Dublin City/Stealing plate/Labourer/
+M/Hoey/Michael/19/Dublin City/7/Kildare Co/Stealing wearing apparel/Labourer/
+M/Hogan/James/22/Dublin City/7/Dublin Co/Robbery man/Butler servant groom/
+F/Hope/Mary Ann/53/Dublin City/7/Dublin City/Pledging stolen property/Dyer silk/
+M/Horogan/Matthew/65/Cork City/Life/Cork City/Robbery man/Baker/
+M/Kearney/John/48/Sligo Co/7/Sligo Co/Pledging stolen property/Labourer/
+M/Kearney/Palmer/21/Sligo Co/7/Mayo/Picking pockets/Labourer/
+M/Keefe/John/36/Cork Co/Life/Cork Co/Stealing clothes/Labourer/
+F/Vernon/Patricia/18/Kilkenny Co/Life/Kings Co/Shoplifting/Clerk/
+M/Kinsella/John/20/Dublin City/Life/Dublin City/Stealing plate/Labourer/
+M/Kirby/William/25/Cork City/7/Cork Co/Stealing wearing apparel/Labourer/
+M/Lawlor/Laughlin/38/Westmeath Co/7/Westmeath/Desertion/Seaman/
+M/Leahy/Michael/24/Tipperary Co/14/Tipperary/Picking pockets/Labourer/
+M/Leary/John/23/Cork City/7/Cork City/Picking pockets/Porter seaman/
+M/Loughlan/Bryan/30/Drogheda Louth Co/7/Dublin Co/Robbery/Stable man/
+M/Lowry/Patrick/25/Dublin City/14/Kildare/Picking pockets/Servant labourer/
+M/Lynch/Michael/14/Cork City/7/Cork City/Picking pockets/School boy/
+M/Lynch/Patrick/14/Cork City/7/Cork City/Picking pockets/Errand boy/
+M/Lyons/John/18/Cork City/7/Cork City/Robbery/Whitesmith bell hanger/
+F/Macklin/Ellen/33/Tipperary Co/7/Tipperary/Robbery/Innkeeper clerk/
+M/Magrath/John/22/Tipperary Co/14/Tipperary/Picking pockets/Farmer/
+M/Malone/Francis/26/Dublin City/7/Dublin City/Robbery man/Plasterer slater/
+M/Mantle/Joseph/23/Cork City/7/Cork City/Robbery/House painter glazier cook/
+M/McCabe/Edward/20/Monaghan Co/7/Monaghan/Robbery man/Labourer/
+M/McCabe/Phelim/20/Longford Co/Life/Longford Co/Pledging stolen property/Labourer/
+M/McCann/Hugh/24/Dublin City/7/Dublin Co/Picking pockets/Labourer/
+M/McCarthy/Daniel/27/Tipperary Co/7/Tipperary/Stealing clothes/Jobber labourer/
+M/McCue/Matthew/25/Kilkenny Co/Life/Fermanagh/Shoplifting/Groom servant/
+M/McDonnell/George/34/Dublin City/7/Louth Co/Stealing plate/Groom coach man/
+M/McGouran/James/24/Leitrim Co/Life/Leitrim Co/Stealing wearing apparel/Labourer/
+M/McLaughlin/Peter/30/Kings Co/7/Kings Co/Robbery man/Cooper/
+M/McLynn/John/26/Westmeath Co/Life/Westmeath/Pledging stolen property/Labourer/
+M/McMahon/James/22/Dublin City/7/Dublin City/Picking pockets/Cooper/
+M/McManus/Joseph/22/Dublin City/Life/Dublin Co/Robbery man/Labourer/
+M/McTeague/Patrick/44/Kings Co/Life/Cavan Co/Robbery/Oarsman labourer/
+M/Meagher/Daniel/21/Tipperary Co/7/Tipperary/Picking pockets/Labourer/
+M/Meagher/James/25/Tipperary Co/7/Tipperary/Picking pockets/Labourer/
+M/Meagher/James/26/Tipperary Co/7/Tipperary/Picking pockets/Labourer/
+M/Moore/Laurence/23/Tipperary Co/7/Tipperary/Robbery man/Labourer/
+M/Moore/Patrick/29/Dublin City/Life/Queens Co/Pledging stolen property/Porter servant/
+M/Mullady/Edward/23/Westmeath Co/7/Westmeath/Picking pockets/Labourer/
+M/Mulligan/John/32/Longford Co/Life/Longford Co/Robbery man/Labourer/
+M/Murphy/Edward/20/Monaghan Co/7/Cavan Co/Pledging stolen property/Groom labourer/
+M/Murphy/John/24/Tipperary Co/14/Tipperary/Picking pockets/Labourer/
+M/Murphy/Matthew/28/Tipperary Co/7/Tipperary/Stealing clothes/Labourer/
+M/Murphy/Michael/20/Tipperary Co/14/Tipperary/Shoplifting/Labourer/
+M/Murphy/Patrick/20/Dublin City/7/Dublin Co/Stealing plate/Labourer/
+M/Murphy/Roger/24/Tipperary Co/14/Tipperary/Stealing wearing apparel/Labourer/
+M/Murphy/William/28/Cork Co/Life/Cork Co/Robbery/Labourer/
+M/O’Brien/Denis/25/Clare Co/Life/Clare Co/Robbery/Servant labourer/	
+F/O’Keefe/Mary/25/Clare Co/7/Ennis Clare Co/Pledging stolen property/Servant/
+F/O’Neill/Margaret/15/Cork City/7/Cork City/Picking pockets/School girl/
+M/Oulster/Michael/24/Dublin City/7/Kings Co/Stealing clothes/Blacksmith/
+M/Pollard/William/33/Tipperary Co/Life/Tipperary/Shoplifting/Plasterer slater/
+M/Power/Edmond/23/Tipperary Co/7/Tipperary/Stealing plate/Labourer ploughman/
+M/Power/James/27/Dublin City/Life/Kildare/Picking pockets/Breeches maker groom/
+M/Reed/Charles/30/Dublin City/7/Kildare Co/Stealing clothes/Farmer/
+M/Reed/John/33/Dublin City/7/Kildare Co/Shoplifting/Farmer/
+M/Reilly/Richard/24/Kildare Co/7/Kildare/Stealing plate/Labourer/
+M/Rochfort/Martin/20/Kings Co/Life/Mullingar Westmeath Co/Robbery man/Shepherd/
+M/Rogers/Ezekiel/18/Cork City/7/Cork City/Pledging stolen property/Labourer/
+M/Ronan/David/22/Cork Co/Life/Cork Co/Picking pockets/Labourer/
+M/Rorke/Miles/24/Leitrim Co/Life/Leitrim Co/Stealing clothes/Labourer/
+M/Rubbery/Thomas/33/Tipperary Co/7/Galway Co/Shoplifting/Carpenter house/
+M/Ryan/Daniel/30/Tipperary Co/7/Tipperary/Stealing plate/Labourer/
+M/Ryan/Denis/32/Limerick Co/7/Limerick/Shoplifting/Labourer/
+M/Ryan/Edward/30/Tipperary Co/14/Clonoulty Tipperary Co/Robbery man/Farmer/
+M/Ryan/James/35/Tipperary Co/7/Tipperary/Pledging stolen property/Labourer/
+M/Ryan/James/44/Tipperary Co/14/Tipperary/Picking pockets/Quarryman/
+M/Ryan/William/24/Tipperary Co/14/Tipperary/Robbery man/Blacksmith/
+M/Savage/Daniel/30/Cork Co/Life/Cork Co/Pledging stolen property/Labourer/
+M/Sheal/James/23/Dublin City/Life/Dublin Co/Picking pockets/Labourer/
+M/Smyth/Edward/30/Westmeath Co/Life/Westmeath/Stealing clothes/Labourer/
+M/Smyth/Thomas/24/Longford Co/Life/Longford Co/Shoplifting/Labourer/
+M/Stokes/John/40/Cork Co/Life/Cork Co/Stealing plate/Labourer/
+M/Sullivan/John/24/Limerick Co/7/Limerick/Robbery man/Labourer/
+M/Thompson/Patrick/19/Longford Co/Life/Longford Co/Pledging stolen property/Labourer/
+M/Weston/John/20/Dublin City/Life/Dublin Co/Picking pockets/Quarryman/
+M/White/Japhet/33/Dublin City/7/Dublin Co/Stealing clothes/Attorney/
+M/Woods/Hugh/29/Dublin City/7/Dublin City/Shoplifting/Stone mason marblemason stonesetter stonecutter/
+*****
+1819
+M/Burn/William/41/Surrey QS England/7/Dublin/Robbery man/Sailor/
+M/Carney/Thomas/19/Lancaster Assizes England/7/Dublin/Pledging stolen property/Tuscan cutter/
+M/Mooney/James/25/Northumberland QS England/7/Drogheda Louth Co/Picking pockets/Weaver/
+M/Ryne/Richard/26/Lancaster QS England/7/Kilkenny/Stealing clothes/Labourer/
+M/Shea/Thomas/31/Middlesex Gaol Delivery England/7/Galway Co/Shoplifting/Labourer/
+M/Summerfield/John/34/Kent QS England/7/Cork/Stealing plate/Seaman/
+*****
+1823
+M/Ferry/Patrick/20/Devon Assizes England/7/Westmeath/Robbery highway/Postillion/
+M/Flynn/Edward/26/Corfu Court Martial/Life/Antrim/Stealing clothes/Soldier/
+M/Richardson/John/24/Corfu Court Martial/Life/Wicklow/Stealing money/Soldier/
+F/Rowan/Ellen/28/Middlesex Gaol Delivery England/7/Limerick/Stealing seals/Clerk/
+M/Trevor/James/23/Dublin Court Martial/7/Enniskillen Fermanagh Co/House breaking/Soldier/
+*****
+1831
+F/Collins/Margaret/16/London England/14/Limerick/Picking pockets/Tailor/
+F/Dwyer/Sarah/50/London England/7/Tipperary/Stealing pewter pots/Gardener/
+M/Haley/Dennis/34/London England/7/Cork/Stealing money/Paviour/
+M/Smith/Edward/21/Worcester England/7/Roscommon/Stealing fowls/Ploughman reaper sower milkman/
+*****
+1834
+F/Agus/Catherine/44/Middlesex Session of Peace England/7/Westmeath/Stealing money/Ropemaker/
+F/Brennan/Mary/18/York QS England/7/Derry Co/Robbery highway/Bakers apprentist/
+M/Higgins/John/35/York QS England/7/Dublin/Robbery highway/Soldier porter/
+M/Jeffers/Thomas/29/Cornwall QS England/14/Waterford/Stealing clothes/Seaman/
+M/McCormick/James/34/Liverpool QS England/7/Antrim Co/Stealing money/Labourer farm/
+F/McWade/Mary/26/Middlesex QS England/7/Dublin/Stealing seals/Hawker/
+M/Rial/John/30/Surrey QS England/Life/Waterford Co/House breaking/Rabbit skin dealer carpenter/
+M/Rogan/Francis/21/Devon QS England/7/Newry Down Co/Stealing boots/Stone cutter/
+M/Sullivan/John/18/Surrey QS England/14/Cork Co/Stealing jacket/Water man/
+F/Taggart/Sarah/28/Devon QS England/7/Tyrone Co/Stealing boots/Servant farm/
+M/Tierney/Michael/24/London QS England/Life/Westmeath Co/Assault robbery/Plasterer cart maker/
+M/Walker/John/26/Sussex QS England/7/Athlone Roscommon Co & Westmeath Co/Stealing poultry/Bricklayers laboure/
+*****
+1840
+F/Bryan/Mary/21/Lancaster (Liverpool) QS England/7/Dublin/Stealing clothes/Servant house/
+F/Bryant/Mary/23/Central Criminal Court London England/10/Cork Co/Stealing money/Maid house/
+F/Burns/Margaret/46/Central Criminal Court London England/7/Kerry Co/Robbery street/Housekeeper/
+F/Cairt/Elizabeth/28/Glasgow Court of Justiciary Scotland/7/Armagh Co/Stealing clothes/Maid kitchen/
+F/Campbell/Mary/36/Edinburgh Court of Justiciary Scotland/7/Donegal Co/Stealing from person/Maid kitchen/
+F/Cronin/Ann/23/Central Criminal Court London England/14/Cork Co/Pledging stolen property/Maid house/
+F/Cunningham/Ellen/22/Lancaster QS England/10/Waterford Co/Stealing money/Maid house/
+F/Denney/Mary/27/Glasgow Court of Justiciary Scotland/7/Derry Co/Stealing blankets/Servant house/
+F/Flynn/Ann/24/Central Criminal Court London England/7/Connaught Roscommon/Robbery woman/Servant general servant/
+F/Foley/Ellen/35/Central Criminal Court London England/14/Kerry Co/Pledging stolen property/Cook/
+F/Hart/Mary Ann/20/Central Criminal Court London England/10/Limerick Co/Picking pockets/Maid childs/
+F/Jones/Catherine/28/Lancaster QS England/7/Dublin Co/Stealing clothes/Servant general house/
+F/Jones/Sarah/25/Lancaster (Liverpool) QS England/7/Cork Co/Shoplifting/Laundress/
+F/Kelly/Margaret/22/Lancaster (Liverpool) QS England/7/Wicklow Co/Stealing plate/Laundress/
+F/Lawrence/Mary/39/Berks QS England/7/Carlow Co/Stealing wearing apparel/Maid of all work/
+F/Leary/Catherine/32/Surry QS England/10/Cork Co/Robbery woman/Servant house & laundress/
+F/Little/Sarah/31/Norfolk QS England/15/Roscommon Co/Robbery street/Servant general house/
+F/Martin/Susan/22/Edinburgh Court of Justiciary Scotland/7/Armagh Co/Assault & robbery/Maid house/
+F/McDonald/Johanna/25/Central Criminal Court London England/7/Limerick Co/Stealing cloak/Cook/
+F/Mellor/Ann/35/Lancaster QS England/10/Dublin/Stealing clothes/Maid house/
+F/Mullen/Mary/26/Lancaster (Liverpool) QS England/7/Dublin/Stealing money/Servant house/
+F/Mullins/Elizabeth/36/Central Criminal Court London England/10/Limerick Co/Robbery woman/Maid dairy/
+F/Purcell/Catherine/20/Central Criminal Court London England/15/Galway Co/Stealing jewellery/Needle woman/
+F/Reedy/Ellen/28/York Leeds QS England/7/Limerick City/Shoplifting/Needle woman/
+F/Smith/Ann/20/Central Criminal Court London England/7/Westmeath Co/Robbery woman/Maid kitchen/
+F/Tierney/Mary/29/Lancaster QS England/7/Dublin Co/Robbery woman/Servant house/
+F/Welsh/Mary/27/Central Criminal Court London England/10/Kildare Co/Robbery from person/Dairywoman & maid kitchen/
+F/White/Catherine/40/Worcester City QS England/7/Kildare Co/Receiving stolen goods/Washerwoman baker & brewer/
+*****

@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.GroupLayout.Alignment;
 import net.miginfocom.swing.MigLayout;
-
+import Classes.Admiral;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 
 public class ShipGUI extends JFrame {
@@ -20,6 +22,8 @@ public class ShipGUI extends JFrame {
 	private JTextField textFieldLocation;
 	private JTextField textFieldCrime;
 	private JTextField textFieldOccupation;
+	private JTextField textFieldNewShip;
+	private Admiral myAdmiral;
 	
 	public ShipGUI(){
 		
@@ -45,7 +49,7 @@ public class ShipGUI extends JFrame {
 		JButton btnAddShip = new JButton("Add Ship");
 		btnAddShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				myAdmiral.addShip(textFieldNewShip.getText());
 			}
 		});
 		Buttons.add(btnAddShip);
@@ -53,6 +57,7 @@ public class ShipGUI extends JFrame {
 		JButton btnDisplayByAge = new JButton("Display by Age");
 		btnDisplayByAge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		Buttons.add(btnDisplayByAge);
@@ -77,6 +82,10 @@ public class ShipGUI extends JFrame {
 		JButton btnAddConvict = new JButton("Add Convict");
 		btnAddConvict.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String convictLine = textFieldGender.getText() + "/" + textFieldLast.getText() + "/" + textFieldFirst.getText() + "/" 
+										+ textFieldAge.getText() + "/" + textFieldSentencedBy.getText() + "/" + textFieldSentence.getText() + "/"
+										+ textFieldLocation.getText() + "/" + textFieldCrime.getText() + "/" + textFieldOccupation.getText();
+				myAdmiral.addConvict(convictLine);
 			}
 		});
 		Buttons.add(btnAddConvict);
@@ -202,6 +211,15 @@ public class ShipGUI extends JFrame {
 		lblGender.setBounds(10, 82, 46, 14);
 		Input.add(lblGender);
 		
+		textFieldNewShip = new JTextField();
+		textFieldNewShip.setBounds(111, 11, 150, 20);
+		Input.add(textFieldNewShip);
+		textFieldNewShip.setColumns(10);
+		
+		JLabel lblNewShip = new JLabel("New Ship");
+		lblNewShip.setBounds(10, 14, 77, 14);
+		Input.add(lblNewShip);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(204, 569, 489, 82);
 		getContentPane().add(panel);
@@ -222,6 +240,7 @@ public class ShipGUI extends JFrame {
 	
 	public void initGUI(){
 		this.setVisible(true);
+		this.myAdmiral = new Admiral();
 	}
 }
 
