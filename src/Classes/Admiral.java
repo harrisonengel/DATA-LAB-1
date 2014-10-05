@@ -74,17 +74,18 @@ public class Admiral {
 
 		while (!inFile.eof()) {
 			nextLine = inFile.readLine();
-			System.out.println("Adding prisoners...");
 			if (nextLine.equals("*****")) {
-				this.addYearNode(inFile.readLine());
-				System.out.println("**********End of Voyage***********");
+				String seeNext = inFile.readLine();
+				if (seeNext == null){
+					System.out.println("*********END OF SHIP*********");
+					return;
+				} else this.addYearNode(seeNext);
 			} else
 				this.addConvict(nextLine);
 		}
 	}
 
 	public void addConvict(String convictInfo) {
-		System.out.println(convictInfo);
 		
 		ConvictNode newConvict = new ConvictNode();
 
@@ -106,8 +107,7 @@ public class Admiral {
 
 		if (currentGender.getDown() == null) {
 			currentGender.setDown(newConvict);
-			System.out.println("First Convict On Board the " + this.currentShip
-					+ "in the year" + this.currentShip.getCurrentYear());
+			newConvict.setNext(newConvict);
 		} else {
 			ConvictNode prev = currentGender.getDown();
 			ConvictNode next = prev.getNext();
@@ -118,12 +118,15 @@ public class Admiral {
 			}
 			prev.setNext(newConvict);
 			newConvict.setNext(currentGender.getDown());
-			System.out.println("Convict " + newConvict.getFirstName() + " On Board!");
+			System.out.println(currentGender.getGender() + " Convict " + newConvict.getFirstName() + " On Board!");
+			System.out.println();
 		}
 	}
 
 	public void addYearNode(String year) {
-		YearNode newYear = new YearNode(Integer.parseInt(year));
+		StringTokenizer tooManySpaces = new StringTokenizer(year);
+		String realYear = tooManySpaces.nextToken();
+		YearNode newYear = new YearNode(Integer.parseInt(realYear));
 
 		if (this.currentShip.getYearPtr() == null) {
 			this.currentShip.setYearPtr(newYear);
@@ -148,4 +151,10 @@ public class Admiral {
 		maleNode.setRight(femaleNode);
 		newYear.setRight(maleNode);
 	}
+
+
+	public ShipNode getCurrentShip(){
+		return this.currentShip;
+	}
+	
 }

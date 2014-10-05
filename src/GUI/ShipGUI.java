@@ -13,7 +13,6 @@ import javax.swing.event.PopupMenuEvent;
 
 
 public class ShipGUI extends JFrame {
-	private JTextField textFieldGender;
 	private JTextField textFieldAge;
 	private JTextField textFieldFirst;
 	private JTextField textFieldLast;
@@ -22,9 +21,9 @@ public class ShipGUI extends JFrame {
 	private JTextField textFieldLocation;
 	private JTextField textFieldCrime;
 	private JTextField textFieldOccupation;
-	private JTextField textFieldNewShip;
 	private Admiral myAdmiral;
-	
+	private JComboBox comboBox;
+	//private String<> shipNames;
 	public ShipGUI(){
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -49,7 +48,7 @@ public class ShipGUI extends JFrame {
 		JButton btnAddShip = new JButton("Add Ship");
 		btnAddShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				myAdmiral.addShip(textFieldNewShip.getText());
+				myAdmiral.addShip(getFileName());
 			}
 		});
 		Buttons.add(btnAddShip);
@@ -80,14 +79,6 @@ public class ShipGUI extends JFrame {
 		
 		
 		JButton btnAddConvict = new JButton("Add Convict");
-		btnAddConvict.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String convictLine = textFieldGender.getText() + "/" + textFieldLast.getText() + "/" + textFieldFirst.getText() + "/" 
-										+ textFieldAge.getText() + "/" + textFieldSentencedBy.getText() + "/" + textFieldSentence.getText() + "/"
-										+ textFieldLocation.getText() + "/" + textFieldCrime.getText() + "/" + textFieldOccupation.getText();
-				myAdmiral.addConvict(convictLine);
-			}
-		});
 		Buttons.add(btnAddConvict);
 		
 		
@@ -130,11 +121,6 @@ public class ShipGUI extends JFrame {
 		getContentPane().add(Input);
 		Input.setLayout(null);
 		
-		textFieldGender = new JTextField();
-		textFieldGender.setBounds(111, 79, 150, 20);
-		Input.add(textFieldGender);
-		textFieldGender.setColumns(10);
-		
 		textFieldAge = new JTextField();
 		textFieldAge.setBounds(111, 214, 150, 20);
 		Input.add(textFieldAge);
@@ -171,7 +157,7 @@ public class ShipGUI extends JFrame {
 		textFieldCrime.setColumns(10);
 		
 		textFieldOccupation = new JTextField();
-		textFieldOccupation.setBounds(116, 433, 145, 20);
+		textFieldOccupation.setBounds(111, 433, 150, 20);
 		Input.add(textFieldOccupation);
 		textFieldOccupation.setColumns(10);
 		
@@ -211,14 +197,27 @@ public class ShipGUI extends JFrame {
 		lblGender.setBounds(10, 82, 46, 14);
 		Input.add(lblGender);
 		
-		textFieldNewShip = new JTextField();
-		textFieldNewShip.setBounds(111, 11, 150, 20);
-		Input.add(textFieldNewShip);
-		textFieldNewShip.setColumns(10);
+		comboBox = new JComboBox();
+		comboBox.setBounds(111, 37, 150, 20);
+		Input.add(comboBox);
+		comboBox.addActionListener(comboBox);
 		
-		JLabel lblNewShip = new JLabel("New Ship");
-		lblNewShip.setBounds(10, 14, 77, 14);
-		Input.add(lblNewShip);
+		final JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.setBounds(111, 78, 53, 23);
+		Input.add(rdbtnMale);
+		
+		final JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.setBounds(183, 78, 64, 23);
+		Input.add(rdbtnFemale);
+		
+		ButtonGroup genderButtons = new ButtonGroup();
+		genderButtons.add(rdbtnMale);
+		genderButtons.add(rdbtnFemale);
+		
+		JLabel lblSelectShip = new JLabel("Select Ship");
+		lblSelectShip.setBounds(10, 40, 77, 14);
+		Input.add(lblSelectShip);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(204, 569, 489, 82);
@@ -234,6 +233,19 @@ public class ShipGUI extends JFrame {
 			}
 		});
 		
+		btnAddConvict.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String gender = "";
+				if (rdbtnMale.isSelected()) gender = "M";
+				else if (rdbtnFemale.isSelected()) gender = "F";
+				String convictLine =   gender +"/" + textFieldLast.getText() + "/" + textFieldFirst.getText() + "/" 
+										+ textFieldAge.getText() + "/" + textFieldSentencedBy.getText() + "/" + textFieldSentence.getText() + "/"
+										+ textFieldLocation.getText() + "/" + textFieldCrime.getText() + "/" + textFieldOccupation.getText();
+				myAdmiral.addConvict(convictLine);
+				comboBox.addItem(myAdmiral.getCurrentShip().getName());
+			}
+		});
+		
 		initGUI();
 	}
 	
@@ -241,6 +253,15 @@ public class ShipGUI extends JFrame {
 	public void initGUI(){
 		this.setVisible(true);
 		this.myAdmiral = new Admiral();
+	}
+	
+	String getFileName() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+			return fc.getSelectedFile().getPath();
+		else
+			return null;
 	}
 }
 
