@@ -19,7 +19,7 @@ public class YearNode implements YearNodeInterface {
 	private GenderNode right;
 	
 	public YearNode(int year){
-		
+		this.year = year;
 	}
 	public String getShipName(){
 		return this.ship;

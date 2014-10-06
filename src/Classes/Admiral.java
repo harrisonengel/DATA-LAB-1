@@ -10,6 +10,7 @@
 package Classes;
 
 import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 /*This is the class used to handle the manipulation of all of our 
  * various nodes.
@@ -62,7 +63,7 @@ public class Admiral {
 				next = next.getShipPtr();
 			}
 
-			next.setShipPtr(newShip);
+			cur.setShipPtr(newShip);
 			newShip.setShipPtr(flagship);
 			System.out.println("Ship Added to the Fleet!");
 		}
@@ -70,39 +71,44 @@ public class Admiral {
 		this.currentShip = newShip;
 		
 		String nextLine = inFile.readLine();
-		this.addYearNode(nextLine);
+		String currentYear = nextLine;
+		this.addYearNode(shipName, currentYear);
 
 		while (!inFile.eof()) {
 			nextLine = inFile.readLine();
-			if (nextLine.equals("*****")) {
+			if (nextLine.startsWith("*****")) {
 				String seeNext = inFile.readLine();
 				if (seeNext == null){
 					System.out.println("*********END OF SHIP*********");
 					return;
-				} else this.addYearNode(seeNext);
+				} else {
+					this.addYearNode(shipName, seeNext);
+					currentYear = seeNext;
+				}
 			} else
-				this.addConvict(nextLine);
+				this.addConvict(shipName, Integer.parseInt(currentYear), nextLine);
 		}
 	}
 
-	public void addConvict(String convictInfo) {
+	public void addConvict(String shipName, int year, String convictInfo) {
 		
-		ConvictNode newConvict = new ConvictNode();
+		ConvictNode newConvict = new ConvictNode(convictInfo);
 
 		StringTokenizer convTokenizer = new StringTokenizer(convictInfo, "/");
-
 		String gender = convTokenizer.nextToken();
-		newConvict.setLastName(convTokenizer.nextToken());
-		newConvict.setFirstName(convTokenizer.nextToken());
-		newConvict.setAge(convTokenizer.nextToken());
-		newConvict.setWhereConvicted(convTokenizer.nextToken());
-		newConvict.setJailSentence(convTokenizer.nextToken());
-		newConvict.setHomeAdd(convTokenizer.nextToken());
-		newConvict.setCrime(convTokenizer.nextToken());
-		newConvict.setProfession(convTokenizer.nextToken());
+		
+		ShipNode findShip = this.getFlagship();
+		while(!findShip.getName().equals(shipName)){
+			findShip = findShip.getShipPtr();
+		}
+		
+		YearNode findYear = findShip.getYearPtr();
+		while(findYear.getYearSailed() != year){
+			findYear = findYear.getDown();
+		}
 
-		GenderNode currentGender = this.currentShip.getCurrentYear().getRight();
-		if (!gender.equals("M"))
+		GenderNode currentGender = findYear.getRight();
+		if (!gender.startsWith("M"))
 			currentGender = currentGender.getRight();
 
 		if (currentGender.getDown() == null) {
@@ -118,29 +124,36 @@ public class Admiral {
 			}
 			prev.setNext(newConvict);
 			newConvict.setNext(currentGender.getDown());
-			System.out.println(currentGender.getGender() + " Convict " + newConvict.getFirstName() + " On Board!");
+			
+			System.out.println(currentGender.getGender() + " Convict " + newConvict.getFirstName() + " On Board The " + getShip(shipName).getName() + " In The Year " + getYear(shipName, year).getYearSailed());
 			System.out.println();
 		}
 	}
 
-	public void addYearNode(String year) {
+	public void addYearNode(String shipName, String year) {
+		ShipNode findShip = this.flagship;
+		while(!findShip.getName().equals(shipName)){
+			findShip = findShip.getShipPtr();
+		}
+		
 		StringTokenizer tooManySpaces = new StringTokenizer(year);
 		String realYear = tooManySpaces.nextToken();
+		findShip.addAvailableYear(Integer.parseInt(realYear));
 		YearNode newYear = new YearNode(Integer.parseInt(realYear));
 
-		if (this.currentShip.getYearPtr() == null) {
-			this.currentShip.setYearPtr(newYear);
+		if (findShip.getYearPtr() == null) {
+			findShip.setYearPtr(newYear);
 			newYear.setDown(newYear);
 		} else {
-			YearNode prev = this.currentShip.getYearPtr();
+			YearNode prev = findShip.getYearPtr();
 			YearNode next = prev.getDown();
-			while (next != this.currentShip.getYearPtr()) {
+			while (next != findShip.getYearPtr()) {
 				prev = next;
 				next = next.getDown();
 			}
 			
 			prev.setDown(newYear);
-			newYear.setDown(this.currentShip.getYearPtr());
+			newYear.setDown(findShip.getYearPtr());
 		}
 
 		this.currentShip.setCurrentYear(newYear);
@@ -151,10 +164,84 @@ public class Admiral {
 		maleNode.setRight(femaleNode);
 		newYear.setRight(maleNode);
 	}
-
+	
+	public void removeConvict(String shipName, int year, String convictInfo){
+		
+		
+		StringTokenizer convTokenizer = new StringTokenizer(convictInfo, "/");
+		String gender = convTokenizer.nextToken();
+		
+		ConvictNode toRemove = new ConvictNode(convictInfo);
+		GenderNode findGender = getGender(shipName, year, gender);
+		
+		ConvictNode prev = findGender.getDown();
+		ConvictNode curNode = prev.getNext();
+		ConvictNode nextNode = curNode.getNext();
+		
+		while (!(compareConvicts(toRemove, curNode))){
+			prev = prev.getNext();
+			curNode = curNode.getNext();
+			nextNode = nextNode.getNext();
+			if(prev == findGender.getDown()) return;
+		}
+		
+		prev.setNext(nextNode);
+	}
+	
+	public ArrayList<ConvictNode> getAllConvicts(ShipNode startingShip){
+		ArrayList<ConvictNode> allNodes = new ArrayList<ConvictNode>();
+		
+		while(startingShip.getCurrentYear() != startingShip.getYearPtr()){
+			ConvictNode maleConvictNode = startingShip.getCurrentYear().getRight().getDown();
+			ConvictNode femaleConvictNode = startingShip.getCurrentYear().getRight().getRight().getDown();
+			
+			allNodes.add(maleConvictNode);
+			maleConvictNode = maleConvictNode.getNext();
+			
+			while(maleConvictNode.getNext() != startingShip.getCurrentYear().getRight().getDown()){
+				maleConvictNode = maleConvictNode.getNext();
+				allNodes.add(maleConvictNode);
+			}
+			
+			allNodes.add(femaleConvictNode);
+			femaleConvictNode = femaleConvictNode.getNext();
+			
+			while(femaleConvictNode.getNext() != startingShip.getCurrentYear().getRight().getRight().getDown()){
+				allNodes.add(femaleConvictNode);
+				femaleConvictNode = femaleConvictNode.getNext();
+			}
+			
+			startingShip.setCurrentYear(startingShip.getCurrentYear().getDown());
+		}
+		
+		return allNodes;
+	}
 
 	public ShipNode getCurrentShip(){
 		return this.currentShip;
+	}
+	public YearNode getYear(String shipName, int i){
+		YearNode findYear = getShip(shipName).getYearPtr();
+		while (findYear.getYearSailed() != i){
+			findYear = findYear.getDown();
+		}
+		return findYear;
+	}
+	public ShipNode getShip(String shipName){
+		ShipNode findShip = this.getFlagship();
+		while(!findShip.getName().equals(shipName)){
+			findShip = findShip.getShipPtr();
+		}
+		return findShip;
+	}
+	public GenderNode getGender(String shipName, int i, String gender){
+		YearNode curYear = getYear(shipName, i);
+		if (gender.startsWith("M")) return curYear.getRight();
+		else return curYear.getRight().getRight();
+	}
+	public boolean compareConvicts(ConvictNode a, ConvictNode b){
+		return (a.getLastName().equals(b.getLastName()) && a.getFirstName().equals(b.getFirstName()) && a.getAge().equals(b.getAge()) && a.getWhereConvicted().equals(b.getWhereConvicted())
+					&& a.getJailSentence().equals(b.getJailSentence()) && a.getHomeAdd().equals(b.getHomeAdd()) && a.getCrime().equals(b.getCrime()) && a.getProfession().equals(b.getProfession()));	
 	}
 	
 }

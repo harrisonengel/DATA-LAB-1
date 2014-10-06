@@ -9,6 +9,8 @@
 
 package Classes;
 
+import java.util.StringTokenizer;
+
 import Interfaces.ConvictNodeInterface;
 
 public class ConvictNode implements ConvictNodeInterface {
@@ -24,6 +26,18 @@ public class ConvictNode implements ConvictNodeInterface {
 	private ConvictNode nextPtr;
 	
 	public ConvictNode(){
+	}
+	public ConvictNode(String convictInfo){
+		StringTokenizer convTokenizer = new StringTokenizer(convictInfo, "/");
+		convTokenizer.nextToken();
+		this.lastName = convTokenizer.nextToken();
+		this.firstName = convTokenizer.nextToken();
+		this.age = convTokenizer.nextToken();
+		this.convictionLoc = convTokenizer.nextToken();
+		this.jailSentence = convTokenizer.nextToken();
+		this.homeAdd = convTokenizer.nextToken();
+		this.crime = convTokenizer.nextToken();
+		this.profession = convTokenizer.nextToken();
 	}
 	public String getLastName(){
 		return this.lastName;
@@ -79,4 +93,5 @@ public class ConvictNode implements ConvictNodeInterface {
 	public void setNext(ConvictNode ptr){
 		this.nextPtr = ptr;
 	}
+	
 }

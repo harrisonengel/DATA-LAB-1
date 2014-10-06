@@ -8,15 +8,17 @@
 /*******************************************************************/
 
 package Classes;
+import java.util.ArrayList;
 
 public class ShipNode {
 	private ShipNode shipPtr;
 	private YearNode yearPtr;
 	private String shipName;
 	private YearNode currentYear;
+	private ArrayList availableYears;
 	
 	public ShipNode(){
-		
+		availableYears = new ArrayList();
 	}
 	
 	public void setYearPtr(YearNode ptr){
@@ -48,5 +50,11 @@ public class ShipNode {
 	}
 	public YearNode getCurrentYear(){
 		return this.currentYear;
+	}
+	public void addAvailableYear(int year){
+		this.availableYears.add(year);
+	}
+	public ArrayList getAvailableYears(){
+		return this.availableYears;
 	}
 }

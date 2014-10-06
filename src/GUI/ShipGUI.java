@@ -7,10 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.GroupLayout.Alignment;
 import net.miginfocom.swing.MigLayout;
-import Classes.Admiral;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
-
+import Classes.*;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;;
 
 public class ShipGUI extends JFrame {
 	private JTextField textFieldAge;
@@ -22,8 +23,10 @@ public class ShipGUI extends JFrame {
 	private JTextField textFieldCrime;
 	private JTextField textFieldOccupation;
 	private Admiral myAdmiral;
-	private JComboBox comboBox;
-	//private String<> shipNames;
+	private JComboBox<String> comboBoxShip;
+	private JComboBox<String> comboBoxYear;
+	private DefaultTableModel dtm;
+	private JTable table;
 	public ShipGUI(){
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -35,11 +38,16 @@ public class ShipGUI extends JFrame {
 		getContentPane().setLayout(null);
 		getContentPane().add(Output);
 		
-		JTextArea textArea = new JTextArea();
-		Output.add(textArea);
-		textArea.setEditable(false);
-		textArea.setRows(25);
-		textArea.setColumns(60);
+		Object columnNames[] = {"Last", "First", "Age", "Convicted", "Sentence", "Home", "Crime", "Profession", "Gender", "Year", "Ship"};
+		Object rowData[][] = {};
+		
+		DefaultTableModel dtm = new DefaultTableModel(rowData, columnNames);
+		
+		table = new JTable(dtm);
+		Output.add(table);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		Output.add(scrollPane);
 		
 		JPanel Buttons = new JPanel();
 		Buttons.setBounds(55, 123, 129, 464);
@@ -49,6 +57,7 @@ public class ShipGUI extends JFrame {
 		btnAddShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				myAdmiral.addShip(getFileName());
+				comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
 			}
 		});
 		Buttons.add(btnAddShip);
@@ -73,6 +82,7 @@ public class ShipGUI extends JFrame {
 		JButton btnDisplayAll = new JButton("Display All");
 		btnDisplayAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				printConvicts("ALL");
 			}
 		});
 		Buttons.add(btnDisplayAll);
@@ -197,10 +207,10 @@ public class ShipGUI extends JFrame {
 		lblGender.setBounds(10, 82, 46, 14);
 		Input.add(lblGender);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(111, 37, 150, 20);
-		Input.add(comboBox);
-		comboBox.addActionListener(comboBox);
+		comboBoxShip = new JComboBox<String>();
+		comboBoxShip.setBounds(111, 11, 150, 20);
+		Input.add(comboBoxShip);
+		comboBoxShip.addItem("All Ships");
 		
 		final JRadioButton rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBounds(111, 78, 53, 23);
@@ -214,9 +224,17 @@ public class ShipGUI extends JFrame {
 		genderButtons.add(rdbtnMale);
 		genderButtons.add(rdbtnFemale);
 		
-		JLabel lblSelectShip = new JLabel("Select Ship");
-		lblSelectShip.setBounds(10, 40, 77, 14);
+		JLabel lblSelectShip = new JLabel("Ship");
+		lblSelectShip.setBounds(10, 14, 77, 14);
 		Input.add(lblSelectShip);
+		
+		JLabel lblYear = new JLabel("Year");
+		lblYear.setBounds(10, 57, 46, 14);
+		Input.add(lblYear);
+		
+		comboBoxYear = new JComboBox();
+		comboBoxYear.setBounds(111, 51, 150, 20);
+		Input.add(comboBoxYear);
 		
 		
 		JPanel panel = new JPanel();
@@ -228,6 +246,8 @@ public class ShipGUI extends JFrame {
 		lblNewLabel_2.setBounds(130, 23, 255, 59);
 		lblNewLabel_2.setIcon(new ImageIcon(ShipGUI.class.getResource("/GUI/cooltext1732865982.jpg")));
 		panel.add(lblNewLabel_2);
+		
+		
 		btnRemoveConvict.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -235,20 +255,46 @@ public class ShipGUI extends JFrame {
 		
 		btnAddConvict.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String gender = "";
-				if (rdbtnMale.isSelected()) gender = "M";
-				else if (rdbtnFemale.isSelected()) gender = "F";
-				String convictLine =   gender +"/" + textFieldLast.getText() + "/" + textFieldFirst.getText() + "/" 
-										+ textFieldAge.getText() + "/" + textFieldSentencedBy.getText() + "/" + textFieldSentence.getText() + "/"
-										+ textFieldLocation.getText() + "/" + textFieldCrime.getText() + "/" + textFieldOccupation.getText();
-				myAdmiral.addConvict(convictLine);
-				comboBox.addItem(myAdmiral.getCurrentShip().getName());
+				String ship = (String)comboBoxShip.getSelectedItem();
+				String yearString = (String)comboBoxYear.getSelectedItem();
+				int year = Integer.parseInt(yearString);
+				if (ship.equals("All Ships")){
+					// Got to make it do nothing if "All Ships" is selected.
+					return;
+				} else if (comboBoxYear.getSelectedItem().equals(null)){
+					
+				}
+				else{
+					
+					String gender = "";
+					if (rdbtnMale.isSelected()) gender = "M";
+					else if (rdbtnFemale.isSelected()) gender = "F";
+					
+					
+					String convictLine =   	gender +"/" + textFieldLast.getText() + "/" + textFieldFirst.getText() + "/" 
+											+ textFieldAge.getText() + "/" + textFieldSentencedBy.getText() + "/" + textFieldSentence.getText() + "/"
+											+ textFieldLocation.getText() + "/" + textFieldCrime.getText() + "/" + textFieldOccupation.getText();
+					myAdmiral.addConvict(ship, year, convictLine);
+					comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
+				}
 			}
+		});
+		
+		comboBoxShip.addActionListener(new ActionListener() {
+			
+				public void actionPerformed(ActionEvent arg0){
+					comboBoxYear.removeAllItems();
+					String ship = (String)comboBoxShip.getSelectedItem();
+					if (!ship.equals("All Ships")){
+						for (Object s: myAdmiral.getShip(ship).getAvailableYears()){
+							comboBoxYear.addItem("" + s);
+						}
+					}
+				}
 		});
 		
 		initGUI();
 	}
-	
 	
 	public void initGUI(){
 		this.setVisible(true);
@@ -263,5 +309,34 @@ public class ShipGUI extends JFrame {
 		else
 			return null;
 	}
+	
+	private void printConvicts(String action){
+		if (action.equalsIgnoreCase("ALL")){
+			ShipNode curShip = myAdmiral.getFlagship();
+			do {
+				YearNode curYear = curShip.getYearPtr();
+				do {
+					GenderNode curGender = curYear.getRight();
+					do{
+						ConvictNode curConv = curGender.getDown();
+						do{
+							//dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
+									//curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
+							String[] s = new String[]{"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7","Test8","Test9","Test10","Test11"};
+							dtm.addRow(s);
+							curConv = curConv.getNext();
+						} while(curConv != curGender.getDown());
+						curGender = curGender.getRight();
+						
+					} while(curGender!= null);
+					curYear = curYear.getDown();
+					
+				} while(curYear != curShip.getYearPtr());
+				curShip = curShip.getShipPtr();
+				
+			} while(curShip != myAdmiral.getFlagship());
+		}
+	}
+	
 }
 
