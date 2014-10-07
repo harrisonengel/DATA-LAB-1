@@ -96,37 +96,19 @@ public class Admiral {
 
 		StringTokenizer convTokenizer = new StringTokenizer(convictInfo, "/");
 		String gender = convTokenizer.nextToken();
-		
-		ShipNode findShip = this.getFlagship();
-		while(!findShip.getName().equals(shipName)){
-			findShip = findShip.getShipPtr();
-		}
-		
-		YearNode findYear = findShip.getYearPtr();
-		while(findYear.getYearSailed() != year){
-			findYear = findYear.getDown();
-		}
 
-		GenderNode currentGender = findYear.getRight();
-		if (!gender.startsWith("M"))
-			currentGender = currentGender.getRight();
+		GenderNode currentGender = getGender(shipName, year, gender);
 
 		if (currentGender.getDown() == null) {
 			currentGender.setDown(newConvict);
 			newConvict.setNext(newConvict);
 		} else {
-			ConvictNode prev = currentGender.getDown();
-			ConvictNode next = prev.getNext();
-
-			while (next != currentGender.getDown()) {
-				prev = next;
-				next = next.getNext();
-			}
-			prev.setNext(newConvict);
+			ConvictNode cur = currentGender.getDown();
+			do {
+				cur = cur.getNext();
+			} while (cur.getNext() != currentGender.getDown());
+			cur.setNext(newConvict);
 			newConvict.setNext(currentGender.getDown());
-			
-			System.out.println(currentGender.getGender() + " Convict " + newConvict.getFirstName() + " On Board The " + getShip(shipName).getName() + " In The Year " + getYear(shipName, year).getYearSailed());
-			System.out.println();
 		}
 	}
 
