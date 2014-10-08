@@ -61,12 +61,7 @@ public class ShipGUI extends JFrame {
 		Buttons.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnAddShip = new JButton("Add Ship");
-		btnAddShip.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				myAdmiral.addShip(getFileName());
-				comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
-			}
-		});
+		
 		Buttons.add(btnAddShip);
 		
 		JButton btnDisplayByAge = new JButton("Display by Age");
@@ -238,6 +233,17 @@ public class ShipGUI extends JFrame {
 		lblNewLabel_2.setIcon(new ImageIcon(ShipGUI.class.getResource("/GUI/cooltext1732865982.jpg")));
 		panel.add(lblNewLabel_2);
 		
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(713, 598, 261, 53);
+		getContentPane().add(textPane);
+		
+		btnAddShip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myAdmiral.addShip(getFileName());
+				comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
+			}
+		});
+		
 		btnDisplayAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String shipName = (String)comboBoxShip.getSelectedItem();
@@ -347,7 +353,7 @@ public class ShipGUI extends JFrame {
 	
 	public String getFileName() {
 		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showSaveDialog(this);
+		int returnVal = fc.showOpenDialog(this);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 			return fc.getSelectedFile().getPath();
 		else
@@ -355,44 +361,46 @@ public class ShipGUI extends JFrame {
 	}
 	
 	public void saveFile(String shipName) {
-		
+
 		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(this);
+		int returnVal = fc.showSaveDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-		try (FileWriter fw = new FileWriter(fc.getSelectedFile() + ".txt")) {
-			fw.write("shipName\n");
-			YearNode curYear = myAdmiral.getShip(shipName).getYearPtr();
-			fw.write("" + curYear.getYearSailed() + "\n");
+			try (FileWriter fw = new FileWriter(fc.getSelectedFile())) {
+				fw.write(shipName + "\n");
+				YearNode curYear = myAdmiral.getShip(shipName).getYearPtr();
+				fw.write("" + curYear.getYearSailed() + "\n");
 
-			do {
-				GenderNode curGender = curYear.getRight();
 				do {
-					if (curGender.getDown() != null) {
-						ConvictNode curConv = curGender.getDown();
-						do {
-							fw.write(curGender.getGender() + "/"
-									+ curConv.getLastName() + "/"
-									+ curConv.getFirstName() + "/"
-									+ curConv.getAge() + "/"
-									+ curConv.getWhereConvicted() + "/"
-									+ curConv.getJailSentence() + "/"
-									+ curConv.getHomeAdd() + "/"
-									+ curConv.getCrime() + "/"
-									+ curConv.getProfession() + "/\n");
-							curConv = curConv.getNext();
-						} while (curConv != curGender.getDown());
-					}
-					curGender = curGender.getRight();
+					GenderNode curGender = curYear.getRight();
+					do {
+						if (curGender.getDown() != null) {
+							ConvictNode curConv = curGender.getDown();
+							do {
+								fw.write(curGender.getGender() + "/"
+										+ curConv.getLastName() + "/"
+										+ curConv.getFirstName() + "/"
+										+ curConv.getAge() + "/"
+										+ curConv.getWhereConvicted() + "/"
+										+ curConv.getJailSentence() + "/"
+										+ curConv.getHomeAdd() + "/"
+										+ curConv.getCrime() + "/"
+										+ curConv.getProfession() + "/\n");
+								curConv = curConv.getNext();
+							} while (curConv != curGender.getDown());
+						}
+						curGender = curGender.getRight();
 
-				} while (curGender != null);
-				curYear = curYear.getDown();
-				fw.write("*****\n");
-				if (curYear != myAdmiral.getShip(shipName).getYearPtr())
-					fw.write("" + curYear.getYearSailed() + "\n");
-			} while (curYear != myAdmiral.getShip(shipName).getYearPtr());
-		} catch (IOException i) {
-			System.out.println("Unable to save file.");
+					} while (curGender != null);
+					curYear = curYear.getDown();
+					fw.write("*****\n");
+					if (curYear != myAdmiral.getShip(shipName).getYearPtr())
+						fw.write("" + curYear.getYearSailed() + "\n");
+				} while (curYear != myAdmiral.getShip(shipName).getYearPtr());
+			} catch (IOException i) {
+				System.out.println("Unable to save file.");
+			}
 		}
-	}	
+	}
 }
 
