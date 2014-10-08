@@ -53,7 +53,7 @@ public class Admiral {
 		if (this.flagship == null) {
 			this.flagship = newShip;
 			newShip.setShipPtr(flagship);
-			System.out.println("Flagship " + flagship.getName() + " Created!");
+			
 		} else {
 			ShipNode cur = flagship;
 			ShipNode next = flagship.getShipPtr();
@@ -65,7 +65,7 @@ public class Admiral {
 
 			cur.setShipPtr(newShip);
 			newShip.setShipPtr(flagship);
-			System.out.println("Ship Added to the Fleet!");
+			
 		}
 
 		this.currentShip = newShip;
@@ -79,7 +79,7 @@ public class Admiral {
 			if (nextLine.startsWith("*****")) {
 				String seeNext = inFile.readLine();
 				if (seeNext == null){
-					System.out.println("*********END OF SHIP*********");
+					
 					return;
 				} else {
 					this.addYearNode(shipName, seeNext);
@@ -114,7 +114,7 @@ public class Admiral {
 
 	public void addYearNode(String shipName, String year) {
 		ShipNode findShip = this.flagship;
-		while(!findShip.getName().equals(shipName)){
+		while(!findShip.getName().equalsIgnoreCase(shipName)){
 			findShip = findShip.getShipPtr();
 		}
 		
@@ -149,7 +149,6 @@ public class Admiral {
 	
 	public void removeConvict(String shipName, int year, String convictInfo){
 		
-		
 		StringTokenizer convTokenizer = new StringTokenizer(convictInfo, "/");
 		String gender = convTokenizer.nextToken();
 		
@@ -166,7 +165,7 @@ public class Admiral {
 			nextNode = nextNode.getNext();
 			if(prev == findGender.getDown()) return;
 		}
-		
+		if (curNode == findGender.getDown()) findGender.setDown(findGender.getDown().getNext());
 		prev.setNext(nextNode);
 	}
 	
@@ -211,7 +210,7 @@ public class Admiral {
 	}
 	public ShipNode getShip(String shipName){
 		ShipNode findShip = this.getFlagship();
-		while(!findShip.getName().equals(shipName)){
+		while(!findShip.getName().equalsIgnoreCase(shipName)){
 			findShip = findShip.getShipPtr();
 		}
 		return findShip;
@@ -222,8 +221,8 @@ public class Admiral {
 		else return curYear.getRight().getRight();
 	}
 	public boolean compareConvicts(ConvictNode a, ConvictNode b){
-		return (a.getLastName().equals(b.getLastName()) && a.getFirstName().equals(b.getFirstName()) && a.getAge().equals(b.getAge()) && a.getWhereConvicted().equals(b.getWhereConvicted())
-					&& a.getJailSentence().equals(b.getJailSentence()) && a.getHomeAdd().equals(b.getHomeAdd()) && a.getCrime().equals(b.getCrime()) && a.getProfession().equals(b.getProfession()));	
+		return (a.getLastName().equalsIgnoreCase(b.getLastName()) && a.getFirstName().equalsIgnoreCase(b.getFirstName()) && a.getAge().equalsIgnoreCase(b.getAge()) && a.getWhereConvicted().equalsIgnoreCase(b.getWhereConvicted())
+					&& a.getJailSentence().equalsIgnoreCase(b.getJailSentence()) && a.getHomeAdd().equalsIgnoreCase(b.getHomeAdd()) && a.getCrime().equalsIgnoreCase(b.getCrime()) && a.getProfession().equalsIgnoreCase(b.getProfession()));	
 	}
 	
 }
