@@ -27,23 +27,22 @@ public class ShipGUI extends JFrame {
 	private JTable table;
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
+	private JTextPane textPane;
 	
 	public ShipGUI(){
 		
+		getContentPane().setLayout(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
 		setSize(1000, 700);
-		
+
+		/**************************************Output Panel with a Table****************************************************/
 		JPanel Output = new JPanel();
 		Output.setBounds(194, 104, 499, 483);
-		getContentPane().setLayout(null);
 		getContentPane().add(Output);
-		
-		Object columnNames[] = {"Last", "First", "Age", "Convicted", "Sentence", "Home", "Crime", "Profession", "Gender", "Year", "Ship"};
-		
-		dtm = new DefaultTableModel(columnNames, 0);
 		Output.setLayout(null);
 		
+		Object columnNames[] = {"Last", "First", "Age", "Convicted", "Sentence", "Home", "Crime", "Profession", "Gender", "Year", "Ship"};
+		dtm = new DefaultTableModel(columnNames, 0);
 		table = new JTable(dtm);
 		table.setBounds(1, 26, 789, 0);
 		table.setRowSelectionAllowed(false);
@@ -57,7 +56,7 @@ public class ShipGUI extends JFrame {
 		Output.add(scrollPane);
 		
 		JPanel Buttons = new JPanel();
-		Buttons.setBounds(55, 123, 129, 464);
+		Buttons.setBounds(31, 123, 153, 464);
 		Buttons.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnAddShip = new JButton("Add Ship");
@@ -85,7 +84,7 @@ public class ShipGUI extends JFrame {
 		Buttons.add(btnRemoveConvict);
 		
 		
-		JButton btnSaveShips = new JButton("Save Ships");
+		JButton btnSaveShips = new JButton("Save Ship");
 		Buttons.add(btnSaveShips);
 		getContentPane().add(Buttons);
 		
@@ -217,7 +216,7 @@ public class ShipGUI extends JFrame {
 		lblYear.setBounds(10, 57, 46, 14);
 		Input.add(lblYear);
 		
-		comboBoxYear = new JComboBox();
+		comboBoxYear = new JComboBox<String>();
 		comboBoxYear.setBounds(111, 51, 150, 20);
 		Input.add(comboBoxYear);
 		comboBoxYear.addItem("All Years");
@@ -233,19 +232,29 @@ public class ShipGUI extends JFrame {
 		lblNewLabel_2.setIcon(new ImageIcon(ShipGUI.class.getResource("/GUI/cooltext1732865982.jpg")));
 		panel.add(lblNewLabel_2);
 		
-		JTextPane textPane = new JTextPane();
+		textPane = new JTextPane();
 		textPane.setBounds(713, 598, 261, 53);
 		getContentPane().add(textPane);
 		
 		btnAddShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				myAdmiral.addShip(getFileName());
-				comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
+				dtm.setNumRows(0);
+				try {String fileName = getFileName();
+				if (fileName != null) {
+					myAdmiral.addShip(getFileName());
+					comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
+				}
+				} catch (NullPointerException np){
+					textPane.setText("No ship was added.");
+				} catch (NumberFormatException nfp){
+					textPane.setText("No ship added, make sure you select a properly formatted .txt file.");
+				}
 			}
 		});
 		
 		btnDisplayAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textPane.setText("");
 				String shipName = (String)comboBoxShip.getSelectedItem();
 				String year = (String)comboBoxYear.getSelectedItem();
 				ConvictPrinter.printAllConvicts(shipName, year, dtm, myAdmiral);
@@ -254,11 +263,15 @@ public class ShipGUI extends JFrame {
 		
 		btnDisplayByGender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textPane.setText("");
 				dtm.setRowCount(0);
 				String gender;
 				if (rdbtnMale.isSelected()) gender = "M";
 				else if (rdbtnFemale.isSelected()) gender = "F";
-				else return;
+				else {
+					textPane.setText("Please select a gender.");
+					return;
+				}
 				String shipName = (String)comboBoxShip.getSelectedItem();
 				String year = (String)comboBoxYear.getSelectedItem();
 				ConvictPrinter.printByGender(shipName, year, gender, dtm, myAdmiral);
@@ -273,38 +286,53 @@ public class ShipGUI extends JFrame {
 					String shipName = (String)comboBoxShip.getSelectedItem();
 					String year = (String)comboBoxYear.getSelectedItem();
 					ConvictPrinter.printByAge(shipName, year, age, dtm, myAdmiral);
-				} else return;
+					textPane.setText("");
+				} else{
+					dtm.setNumRows(0);
+					textPane.setText("Please enter a numeric age into the age field.");
+					return;
+				}
 			}		
 		});
 		
 		
 		btnRemoveConvict.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dtm.setNumRows(0);
 				String ship = (String)comboBoxShip.getSelectedItem();
 				String year = (String)comboBoxYear.getSelectedItem();
 				String age = textFieldAge.getText();
 				String first = textFieldFirst.getText();
 				String last = textFieldLast.getText();
 				
-				if (ship.equalsIgnoreCase("All Ships") || year.equalsIgnoreCase("All Years")) return;
+				if (ship.equalsIgnoreCase("All Ships") || year.equalsIgnoreCase("All Years")){
+					textPane.setText("Be more specific. Select a ship and a year.");
+					return;
+				}
 				else {
 					myAdmiral.removeConvict(ship, year, age, first, last);
+					textPane.setText("Convict successfully removed! (hopefully for good behavior)");
 				}
 			}
 		});
 		
 		btnAddConvict.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dtm.setNumRows(0);
 				String ship = (String)comboBoxShip.getSelectedItem();
 				String yearString = (String)comboBoxYear.getSelectedItem();
 				
 				if (ship.equalsIgnoreCase("All Ships") || yearString.equalsIgnoreCase("All Years")){
+					textPane.setText("Don't be cruel! Convicts can't be added to all ships or all years, no one is that bad! Please select a ship and a year.");
 					return;
 				} else{
-					
-					int year = Integer.parseInt(yearString);
+					try {int year = Integer.parseInt(yearString);
 					myAdmiral.addConvict(ship, year, getConvictString());
 					comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
+					textPane.setText("Convict Successfully Added!");
+					} catch (ArrayIndexOutOfBoundsException exception){
+						textPane.setText("Unable to read file. Make sure your .txt file is formatted correctly.");
+					}
 				}
 			}
 		});
@@ -325,8 +353,10 @@ public class ShipGUI extends JFrame {
 		
 		btnSaveShips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textPane.setText("");
 				String shipName = (String)comboBoxShip.getSelectedItem();
 				if (!shipName.equalsIgnoreCase("All Ships"))saveFile(shipName);
+				else textPane.setText("You can't save all ships at once. Each ship must be saved individually. Sorry if you have a large fleet.");
 			}
 		});
 		
@@ -354,14 +384,19 @@ public class ShipGUI extends JFrame {
 	public String getFileName() {
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
+		if (returnVal == JFileChooser.APPROVE_OPTION){
+			textPane.setText("Ship Added");
 			return fc.getSelectedFile().getPath();
-		else
+		}
+		else {
+			textPane.setText("No Ship Added");
 			return null;
+		}
 	}
 	
 	public void saveFile(String shipName) {
-
+		
+		textPane.setText("");
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showSaveDialog(this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -397,8 +432,9 @@ public class ShipGUI extends JFrame {
 					if (curYear != myAdmiral.getShip(shipName).getYearPtr())
 						fw.write("" + curYear.getYearSailed() + "\n");
 				} while (curYear != myAdmiral.getShip(shipName).getYearPtr());
+				textPane.setText("Ship Saved!");
 			} catch (IOException i) {
-				System.out.println("Unable to save file.");
+				textPane.setText("Unable to save file. Did you select the .txt file that the ship came from?");
 			}
 		}
 	}
