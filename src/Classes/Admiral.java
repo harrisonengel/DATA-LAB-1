@@ -147,26 +147,25 @@ public class Admiral {
 		newYear.setRight(maleNode);
 	}
 	
-	public void removeConvict(String shipName, int year, String convictInfo){
+	public void removeConvict(String shipName, String year, String age, String firstName, String lastName){
 		
-		StringTokenizer convTokenizer = new StringTokenizer(convictInfo, "/");
-		String gender = convTokenizer.nextToken();
-		
-		ConvictNode toRemove = new ConvictNode(convictInfo);
-		GenderNode findGender = getGender(shipName, year, gender);
-		
-		ConvictNode prev = findGender.getDown();
-		ConvictNode curNode = prev.getNext();
-		ConvictNode nextNode = curNode.getNext();
-		
-		while (!(compareConvicts(toRemove, curNode))){
-			prev = prev.getNext();
-			curNode = curNode.getNext();
-			nextNode = nextNode.getNext();
-			if(prev == findGender.getDown()) return;
-		}
-		if (curNode == findGender.getDown()) findGender.setDown(findGender.getDown().getNext());
-		prev.setNext(nextNode);
+		YearNode findYear = getYear(shipName, Integer.parseInt(year));
+		GenderNode curGender = findYear.getRight();
+		do {
+			ConvictNode prevNode = curGender.getDown();
+			ConvictNode curNode = prevNode.getNext();
+			ConvictNode nextNode = curNode.getNext();
+			while (true) {
+				prevNode = prevNode.getNext();
+				curNode = curNode.getNext();
+				nextNode = nextNode.getNext();
+				if (prevNode == curGender.getDown()) break;
+				if (curNode.getAge().equalsIgnoreCase(age) && curNode.getFirstName().equalsIgnoreCase(firstName) && curNode.getLastName().equalsIgnoreCase(lastName))
+					prevNode.setNext(nextNode);
+				if (curNode == curGender.getDown()) curGender.setDown(nextNode);
+			}
+			curGender = curGender.getRight();
+		} while (curGender.getRight() != null);
 	}
 	
 	public ArrayList<ConvictNode> getAllConvicts(ShipNode startingShip){

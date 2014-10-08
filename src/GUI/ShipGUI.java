@@ -1,17 +1,15 @@
 package GUI;
 
 import javax.swing.*;
-import javax.imageio.ImageIO;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.GroupLayout.Alignment;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.event.PopupMenuListener;
-import javax.swing.event.PopupMenuEvent;
 import Classes.*;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 
 public class ShipGUI extends JFrame {
 	private JTextField textFieldAge;
@@ -81,11 +79,6 @@ public class ShipGUI extends JFrame {
 		
 
 		JButton btnDisplayAll = new JButton("Display All");
-		btnDisplayAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				printConvicts((String)comboBoxShip.getSelectedItem(), (String)comboBoxYear.getSelectedItem());
-			}
-		});
 		Buttons.add(btnDisplayAll);
 		
 		
@@ -98,10 +91,6 @@ public class ShipGUI extends JFrame {
 		
 		
 		JButton btnSaveShips = new JButton("Save Ships");
-		btnSaveShips.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		Buttons.add(btnSaveShips);
 		getContentPane().add(Buttons);
 		
@@ -249,17 +238,36 @@ public class ShipGUI extends JFrame {
 		lblNewLabel_2.setIcon(new ImageIcon(ShipGUI.class.getResource("/GUI/cooltext1732865982.jpg")));
 		panel.add(lblNewLabel_2);
 		
+		btnDisplayAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String shipName = (String)comboBoxShip.getSelectedItem();
+				String year = (String)comboBoxYear.getSelectedItem();
+				ConvictPrinter.printAllConvicts(shipName, year, dtm, myAdmiral);
+			}
+		});
+		
 		btnDisplayByGender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dtm.setRowCount(0);
-				printByGender();
+				String gender;
+				if (rdbtnMale.isSelected()) gender = "M";
+				else if (rdbtnFemale.isSelected()) gender = "F";
+				else return;
+				String shipName = (String)comboBoxShip.getSelectedItem();
+				String year = (String)comboBoxYear.getSelectedItem();
+				ConvictPrinter.printByGender(shipName, year, gender, dtm, myAdmiral);
 			}
 		});
 		
 		btnDisplayByAge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dtm.setRowCount(0);
-				printByAge();
+				if (ConvictPrinter.isNumeric(textFieldAge.getText())){
+					String age = textFieldAge.getText();
+					String shipName = (String)comboBoxShip.getSelectedItem();
+					String year = (String)comboBoxYear.getSelectedItem();
+					ConvictPrinter.printByAge(shipName, year, age, dtm, myAdmiral);
+				} else return;
 			}		
 		});
 		
@@ -268,10 +276,13 @@ public class ShipGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String ship = (String)comboBoxShip.getSelectedItem();
 				String year = (String)comboBoxYear.getSelectedItem();
+				String age = textFieldAge.getText();
+				String first = textFieldFirst.getText();
+				String last = textFieldLast.getText();
+				
 				if (ship.equalsIgnoreCase("All Ships") || year.equalsIgnoreCase("All Years")) return;
 				else {
-					int yearInt = Integer.parseInt(year);
-					myAdmiral.removeConvict(ship, yearInt, getConvictString());
+					myAdmiral.removeConvict(ship, year, age, first, last);
 				}
 			}
 		});
@@ -306,17 +317,16 @@ public class ShipGUI extends JFrame {
 				}
 		});
 		
+		btnSaveShips.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String shipName = (String)comboBoxShip.getSelectedItem();
+				if (!shipName.equalsIgnoreCase("All Ships"))saveFile(shipName);
+			}
+		});
+		
 		initGUI();
 	}
 	
-	public static boolean isNumeric(String str)  {  
-	  try  {  
-	    int i = Integer.parseInt(str);  
-	  }  catch(NumberFormatException nfe)  {  
-	    return false;  
-	  }  
-	  return true;  
-	}
 	
 	private String getConvictString(){
 		String gender = "";
@@ -337,282 +347,52 @@ public class ShipGUI extends JFrame {
 	
 	public String getFileName() {
 		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(this);
+		int returnVal = fc.showSaveDialog(this);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 			return fc.getSelectedFile().getPath();
 		else
 			return null;
 	}
 	
-	private void printConvicts(String shipName, String year){
+	public void saveFile(String shipName) {
 		
-		dtm.setRowCount(0);
-		
-		if (shipName.equalsIgnoreCase("All Ships")){
-			if (year.equalsIgnoreCase("All Years")){
-				ShipNode curShip = myAdmiral.getFlagship();
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(this);
+
+		try (FileWriter fw = new FileWriter(fc.getSelectedFile() + ".txt")) {
+			fw.write("shipName\n");
+			YearNode curYear = myAdmiral.getShip(shipName).getYearPtr();
+			fw.write("" + curYear.getYearSailed() + "\n");
+
+			do {
+				GenderNode curGender = curYear.getRight();
 				do {
-					YearNode curYear = curShip.getYearPtr();
-					do {
-						GenderNode curGender = curYear.getRight();
-						do{
-							if (curGender.getDown() != null){
-							ConvictNode curConv = curGender.getDown();
-								do{
-									dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-											curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
-									curConv = curConv.getNext();
-								} while(curConv != curGender.getDown());
-							}
-							curGender = curGender.getRight();
-							
-						} while(curGender!= null);
-						curYear = curYear.getDown();
-						
-					} while(curYear != curShip.getYearPtr());
-					curShip = curShip.getShipPtr();
-					
-				} while(curShip != myAdmiral.getFlagship());
-			} else {
-				ShipNode curShip = myAdmiral.getFlagship();
-				do {
-					YearNode curYear = myAdmiral.getYear(curShip.getName(), Integer.parseInt(year));
-						GenderNode curGender = curYear.getRight();
-						do{
-							if (curGender.getDown() != null){
-							ConvictNode curConv = curGender.getDown();
-								do{
-									dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-											curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
-									curConv = curConv.getNext();
-								} while(curConv != curGender.getDown());
-							}
-							curGender = curGender.getRight();
-							
-						} while(curGender!= null);
-					curShip = curShip.getShipPtr();
-					
-				} while(curShip != myAdmiral.getFlagship());
-			}
-			
-		}
-		else {
-			if (!year.equalsIgnoreCase("All Years")){
-				GenderNode curGender = myAdmiral.getGender(shipName, Integer.parseInt(year), "M");
-				do{
-					if (curGender.getDown() != null){
-					ConvictNode curConv = curGender.getDown();
-						do{
-							dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-									curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + year, shipName});
+					if (curGender.getDown() != null) {
+						ConvictNode curConv = curGender.getDown();
+						do {
+							fw.write(curGender.getGender() + "/"
+									+ curConv.getLastName() + "/"
+									+ curConv.getFirstName() + "/"
+									+ curConv.getAge() + "/"
+									+ curConv.getWhereConvicted() + "/"
+									+ curConv.getJailSentence() + "/"
+									+ curConv.getHomeAdd() + "/"
+									+ curConv.getCrime() + "/"
+									+ curConv.getProfession() + "/\n");
 							curConv = curConv.getNext();
-						} while(curConv != curGender.getDown());
+						} while (curConv != curGender.getDown());
 					}
 					curGender = curGender.getRight();
-					
-				} while(curGender!= null);
-			} else {
-				YearNode curYear = myAdmiral.getShip(shipName).getYearPtr();
-				do {
-					GenderNode curGender = curYear.getRight();
-					do{
-						if (curGender.getDown() != null){
-						ConvictNode curConv = curGender.getDown();
-							do{
-								dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-										curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), shipName});
-								curConv = curConv.getNext();
-							} while(curConv != curGender.getDown());
-						}
-						curGender = curGender.getRight();
-						
-					} while(curGender!= null);
-					curYear = curYear.getDown();
-					
-				} while(curYear != myAdmiral.getShip(shipName).getYearPtr());
-			}
+
+				} while (curGender != null);
+				curYear = curYear.getDown();
+				fw.write("*****\n");
+				if (curYear != myAdmiral.getShip(shipName).getYearPtr())
+					fw.write("" + curYear.getYearSailed() + "\n");
+			} while (curYear != myAdmiral.getShip(shipName).getYearPtr());
+		} catch (IOException i) {
+			System.out.println("Unable to save file.");
 		}
-		
-	}
-	private void printByAge(){
-		if (isNumeric(textFieldAge.getText())){
-			String age = textFieldAge.getText();
-			String shipName = (String)comboBoxShip.getSelectedItem();
-			String year = (String)comboBoxYear.getSelectedItem();
-			
-			if (shipName.equalsIgnoreCase("All Ships")){
-				if (year.equalsIgnoreCase("All Years")){
-					ShipNode curShip = myAdmiral.getFlagship();
-					do {
-						YearNode curYear = curShip.getYearPtr();
-						do {
-							GenderNode curGender = curYear.getRight();
-							do{
-								if (curGender.getDown() != null){
-								ConvictNode curConv = curGender.getDown();
-									do{
-										if (age.equalsIgnoreCase(curConv.getAge())){
-										dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-												curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
-										}
-										curConv = curConv.getNext();
-									} while(curConv != curGender.getDown());
-								}
-								curGender = curGender.getRight();
-								
-							} while(curGender!= null);
-							curYear = curYear.getDown();
-							
-						} while(curYear != curShip.getYearPtr());
-						curShip = curShip.getShipPtr();
-						
-					} while(curShip != myAdmiral.getFlagship());
-				} else {
-					ShipNode curShip = myAdmiral.getFlagship();
-					do {
-						YearNode curYear = myAdmiral.getYear(curShip.getName(), Integer.parseInt(year));
-							GenderNode curGender = curYear.getRight();
-							do{
-								if (curGender.getDown() != null){
-								ConvictNode curConv = curGender.getDown();
-									do{
-										if (age.equalsIgnoreCase(curConv.getAge())){
-											dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-													curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
-											}
-										curConv = curConv.getNext();
-									} while(curConv != curGender.getDown());
-								}
-								curGender = curGender.getRight();
-								
-							} while(curGender!= null);
-						curShip = curShip.getShipPtr();
-						
-					} while(curShip != myAdmiral.getFlagship());
-				}
-				
-			}
-			else {
-				if (!year.equalsIgnoreCase("All Years")){
-					GenderNode curGender = myAdmiral.getGender(shipName, Integer.parseInt(year), "M");
-					do{
-						if (curGender.getDown() != null){
-						ConvictNode curConv = curGender.getDown();
-							do{
-								if (age.equalsIgnoreCase(curConv.getAge())){
-									dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-											curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), year, shipName});
-									}
-								curConv = curConv.getNext();
-							} while(curConv != curGender.getDown());
-						}
-						curGender = curGender.getRight();
-						
-					} while(curGender!= null);
-				} else {
-					YearNode curYear = myAdmiral.getShip(shipName).getYearPtr();
-					do {
-						GenderNode curGender = curYear.getRight();
-						do{
-							if (curGender.getDown() != null){
-							ConvictNode curConv = curGender.getDown();
-								do{
-									if (age.equalsIgnoreCase(curConv.getAge())){
-										dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-												curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), shipName});
-										}
-									curConv = curConv.getNext();
-								} while(curConv != curGender.getDown());
-							}
-							curGender = curGender.getRight();
-							
-						} while(curGender!= null);
-						curYear = curYear.getDown();
-						
-					} while(curYear != myAdmiral.getShip(shipName).getYearPtr());
-				}
-			}
-			
-		} else System.out.println("Age is not a number."); 
-	}
-	
-	private void printByGender(){
-		String gender;
-		if (rdbtnMale.isSelected()) gender = "M";
-		else if (rdbtnFemale.isSelected()) gender = "F";
-		else return;
-		
-			String shipName = (String)comboBoxShip.getSelectedItem();
-			String year = (String)comboBoxYear.getSelectedItem();
-			
-			if (shipName.equalsIgnoreCase("All Ships")){
-				if (year.equalsIgnoreCase("All Years")){
-					ShipNode curShip = myAdmiral.getFlagship();
-					do {
-						YearNode curYear = curShip.getYearPtr();
-						do {
-							GenderNode curGender = curYear.getRight();
-							if (gender.equals("F")) curGender = curGender.getRight();
-							if (curGender.getDown() != null){
-								ConvictNode curConv = curGender.getDown();
-								do{
-									dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-												curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
-									curConv = curConv.getNext();
-							} while(curConv != curGender.getDown());
-							}
-							curYear = curYear.getDown();
-						} while(curYear != curShip.getYearPtr());
-						curShip = curShip.getShipPtr();
-					} while(curShip != myAdmiral.getFlagship());
-				} else {
-					ShipNode curShip = myAdmiral.getFlagship();
-					do {
-						YearNode curYear = myAdmiral.getYear(curShip.getName(), Integer.parseInt(year));
-							GenderNode curGender = curYear.getRight();
-							if (gender.equalsIgnoreCase("F"))curGender = curGender.getRight();
-							
-								if (curGender.getDown() != null){
-								ConvictNode curConv = curGender.getDown();
-									do{
-											dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-													curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), curShip.getName()});
-										curConv = curConv.getNext();
-									} while(curConv != curGender.getDown());
-								}
-						curShip = curShip.getShipPtr();
-						} while(curShip != myAdmiral.getFlagship());
-					} 
-				}else {
-					if (!year.equalsIgnoreCase("All Years")){
-						GenderNode curGender = myAdmiral.getGender(shipName, Integer.parseInt(year), "M");
-						if(gender.equalsIgnoreCase("F")) curGender = curGender.getRight();
-							if (curGender.getDown() != null){
-							ConvictNode curConv = curGender.getDown();
-								do{
-										dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-												curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), year, shipName});
-									curConv = curConv.getNext();
-								} while(curConv != curGender.getDown());
-							}
-							curGender = curGender.getRight();
-				} else {
-					YearNode curYear = myAdmiral.getShip(shipName).getYearPtr();
-					do {
-						GenderNode curGender = curYear.getRight();
-						if(gender.equalsIgnoreCase("F")) curGender = curGender.getRight();
-							if (curGender.getDown() != null){
-								ConvictNode curConv = curGender.getDown();
-								do{
-										dtm.addRow(new Object[]{curConv.getLastName(), curConv.getFirstName(), curConv.getAge(), curConv.getWhereConvicted(), curConv.getJailSentence(), 
-												curConv.getHomeAdd(), curConv.getCrime(), curConv.getProfession(), curGender.getGender(), "" + curYear.getYearSailed(), shipName});
-									curConv = curConv.getNext();
-								} while(curConv != curGender.getDown());
-							}
-						curYear = curYear.getDown();
-					} while(curYear != myAdmiral.getShip(shipName).getYearPtr());
-				}
-			}
-	}
+	}	
 }
 
