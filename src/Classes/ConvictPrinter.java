@@ -1,7 +1,8 @@
 package Classes;
 
-import Classes.*;
+
 import javax.swing.table.*;
+
 public class ConvictPrinter {
 
 	private ConvictPrinter(){

@@ -239,19 +239,24 @@ public class ShipGUI extends JFrame {
 		btnAddShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dtm.setNumRows(0);
-				try {String fileName = getFileName();
-				if (fileName != null) {
-					myAdmiral.addShip(getFileName());
-					comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
-				}
-				} catch (NullPointerException np){
+				try {
+					String fileName = getFileName();
+					if (fileName != null) {
+						myAdmiral.addShip(fileName);
+						ShipNode findShip = myAdmiral.getFlagship();
+						while(findShip.getShipPtr() != myAdmiral.getFlagship()) {
+							findShip = findShip.getShipPtr();
+						}
+						comboBoxShip.addItem(findShip.getName());
+					}
+				} catch (NullPointerException np) {
 					textPane.setText("No ship was added.");
-				} catch (NumberFormatException nfp){
+				} catch (NumberFormatException nfp) {
 					textPane.setText("No ship added, make sure you select a properly formatted .txt file.");
 				}
 			}
 		});
-		
+
 		btnDisplayAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textPane.setText("");
@@ -326,9 +331,9 @@ public class ShipGUI extends JFrame {
 					textPane.setText("Don't be cruel! Convicts can't be added to all ships or all years, no one is that bad! Please select a ship and a year.");
 					return;
 				} else{
-					try {int year = Integer.parseInt(yearString);
+					try {
+					int year = Integer.parseInt(yearString);
 					myAdmiral.addConvict(ship, year, getConvictString());
-					comboBoxShip.addItem(myAdmiral.getCurrentShip().getName());
 					textPane.setText("Convict Successfully Added!");
 					} catch (ArrayIndexOutOfBoundsException exception){
 						textPane.setText("Unable to read file. Make sure your .txt file is formatted correctly.");
