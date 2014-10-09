@@ -1,5 +1,5 @@
 /*******************************************************************/
-/*   Program Name:     Lab 1                                       */
+/*   Program Name:     Lab 1    meShip                             */
 /*                                                                 */
 /*   Student Name:     Harrison Engel                              */
 /*   Semester:         Fall 2014                                   */
@@ -10,11 +10,11 @@
 package Classes;
 
 import java.util.StringTokenizer;
-import java.util.ArrayList;
 
 /*************************************************************************
- * Admiral Class - This class is for the Admiral object which is used to
- * manipulate the various Nodes and keep track of the head node.
+ * 								Admiral
+ * This class is for the Admiral object which is used to
+ * manipulate the various Nodes and keep track of the head node (flagship).
  *************************************************************************/
 
 public class Admiral {
@@ -154,30 +154,42 @@ public class Admiral {
 	/**********************************************************************
 	 * 								addYearNode
 	 * addYearNode takes the name of the ship it belongs to as well as the 
-	 * year it represents. It is then placed into the list 
+	 * year it represents. It is then placed into the list. Note it is NOT
+	 * automatically sorted into numeric order. It is up to the creator 
+	 * of the file to order years properly if thsi concerns them.
 	 *********************************************************************/
 	public void addYearNode(String shipName, String year) {
 		
 		ShipNode findShip = this.getShip(shipName);
 		
+		//The StringTokenizer is used to account for the occasional
+		//Year line in a file that contains extra spaces after the year.
 		StringTokenizer tooManySpaces = new StringTokenizer(year);
 		String realYear = tooManySpaces.nextToken();
 		findShip.addAvailableYear(Integer.parseInt(realYear));
 		YearNode newYear = new YearNode(Integer.parseInt(realYear));
 
+		//This first if case accounts for the very first YearNode belonging
+		//to a specific ship.
 		if (findShip.getYearPtr() == null) {
 			findShip.setYearPtr(newYear);
 			newYear.setDown(newYear);
-		} else {
+		} else { 
+			
+			//The while loop finds the last YearNode in the specified ship. 
+			//It knows which is the last because the last YearNode will point
+			//to the YearNode directly pointed to by the Ship.
 			YearNode curYear = findShip.getYearPtr();
-
 			while (curYear.getDown() != findShip.getYearPtr()) {
 				curYear = curYear.getDown();
 			}
 			curYear.setDown(newYear);
 			newYear.setDown(findShip.getYearPtr());
 		}
-
+		
+		//Male and Female GenderNodes are automatically created
+		//containing null ConvictNode Pointers. The newYear node 
+		//is then set to point to a new male node.
 		GenderNode femaleNode = new GenderNode('F');
 		GenderNode maleNode = new GenderNode('M');
 
@@ -185,12 +197,25 @@ public class Admiral {
 		newYear.setRight(maleNode);
 	}
 
+	/*************************************************************************
+	 * 								removeConvict
+	 * This method is used to remove a ConvictNode from the specified ship and year
+	 * based on Age, First Name, and Last name.
+	 **************************************************************************/
 	public void removeConvict(String shipName, String year, String age,
 			String firstName, String lastName) {
-
+		
+		
 		YearNode findYear = getYear(shipName, Integer.parseInt(year));
-		GenderNode curGender = findYear.getRight();
-		do {
+		GenderNode curGender = findYear.getRight(); 
+		
+		//Loops through the linked lists on both Male and Female gender Nodes
+		//If there were both a male and female of the same name and age it will
+		//remove both.
+		
+		for (int i=0; i<2; i++) {
+			//This method requires that three consecutive nodes are kept track of
+			//to remove the convict node by pla
 			ConvictNode prevNode = curGender.getDown();
 			ConvictNode curNode = prevNode.getNext();
 			ConvictNode nextNode = curNode.getNext();
@@ -198,52 +223,31 @@ public class Admiral {
 				prevNode = prevNode.getNext();
 				curNode = curNode.getNext();
 				nextNode = nextNode.getNext();
+				//exit the loop when our pointers get back to the start.
 				if (prevNode == curGender.getDown())
 					break;
+				/*The Node to remove is found when its age, first name, and last name
+				match what we are looking for. The next if statement checks to see
+				if we happened to remove the head node. If this is the case,
+				it resets the ConvictNode pointer of the appropriate gender to 
+				the next ConvictNode.*/
 				if (curNode.getAge().equalsIgnoreCase(age)
 						&& curNode.getFirstName().equalsIgnoreCase(firstName)
-						&& curNode.getLastName().equalsIgnoreCase(lastName))
+						&& curNode.getLastName().equalsIgnoreCase(lastName)) {
 					prevNode.setNext(nextNode);
-				if (curNode == curGender.getDown())
-					curGender.setDown(nextNode);
+					if (curNode == curGender.getDown())
+						curGender.setDown(nextNode);
+				}
 			}
 			curGender = curGender.getRight();
-		} while (curGender.getRight() != null);
+		} 
 	}
 
-	public ArrayList<ConvictNode> getAllConvicts(ShipNode startingShip) {
-		ArrayList<ConvictNode> allNodes = new ArrayList<ConvictNode>();
-
-		while (startingShip.getCurrentYear() != startingShip.getYearPtr()) {
-			ConvictNode maleConvictNode = startingShip.getCurrentYear()
-					.getRight().getDown();
-			ConvictNode femaleConvictNode = startingShip.getCurrentYear()
-					.getRight().getRight().getDown();
-
-			allNodes.add(maleConvictNode);
-			maleConvictNode = maleConvictNode.getNext();
-
-			while (maleConvictNode.getNext() != startingShip.getCurrentYear()
-					.getRight().getDown()) {
-				maleConvictNode = maleConvictNode.getNext();
-				allNodes.add(maleConvictNode);
-			}
-
-			allNodes.add(femaleConvictNode);
-			femaleConvictNode = femaleConvictNode.getNext();
-
-			while (femaleConvictNode.getNext() != startingShip.getCurrentYear()
-					.getRight().getRight().getDown()) {
-				allNodes.add(femaleConvictNode);
-				femaleConvictNode = femaleConvictNode.getNext();
-			}
-
-			startingShip
-					.setCurrentYear(startingShip.getCurrentYear().getDown());
-		}
-
-		return allNodes;
-	}
+	/******************************************************************************
+	 * 							getYear
+	 * This method returns a specific YearNode based on a ship name and the year
+	 * it represents.		
+	 *******************************************************************************/
 
 	public YearNode getYear(String shipName, int i) {
 
@@ -253,7 +257,12 @@ public class Admiral {
 		}
 		return findYear;
 	}
-
+	/******************************************************************************
+	 * 							getShip
+	 * This method returns a specific ShipNode based on the name of the ship you are
+	 * looking for.		
+	 *******************************************************************************/
+	
 	public ShipNode getShip(String shipName) {
 		ShipNode findShip = this.getFlagship();
 		while (!findShip.getName().equalsIgnoreCase(shipName)) {
@@ -261,29 +270,21 @@ public class Admiral {
 		}
 		return findShip;
 	}
+	
+	/******************************************************************************
+	 * 							getGender
+	 * This method returns a specific GenderNode based on a ship name, the year, and
+	 * the gender.
+	 *******************************************************************************/
 
 	public GenderNode getGender(String shipName, int i, String gender) {
-
 		YearNode curYear = getYear(shipName, i);
 		if (gender.startsWith("M")){
 			return curYear.getRight();
 		}
-		else{
+		else{ //if the gender isn't male then it must be female (politically incorrect, i know). 
 			return curYear.getRight().getRight();
 		}
 			
 	}
-
-	public boolean compareConvicts(ConvictNode a, ConvictNode b) {
-		return (a.getLastName().equalsIgnoreCase(b.getLastName())
-				&& a.getFirstName().equalsIgnoreCase(b.getFirstName())
-				&& a.getAge().equalsIgnoreCase(b.getAge())
-				&& a.getWhereConvicted()
-						.equalsIgnoreCase(b.getWhereConvicted())
-				&& a.getJailSentence().equalsIgnoreCase(b.getJailSentence())
-				&& a.getHomeAdd().equalsIgnoreCase(b.getHomeAdd())
-				&& a.getCrime().equalsIgnoreCase(b.getCrime()) && a
-				.getProfession().equalsIgnoreCase(b.getProfession()));
-	}
-
 }
